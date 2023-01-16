@@ -1,0 +1,12 @@
+public class Solution {
+
+	public static int count(int n){
+		//Write your code here
+		if(n/10<=0){
+			return 1;
+		}
+		int smallerInput = count(n/10);
+		return 1+smallerInput;
+	}
+
+}
