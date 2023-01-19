@@ -1,0 +1,22 @@
+public class solution {
+
+	public static boolean isStringPalindrome(String input) {
+		// Write your code here
+		return isPalindrome(input,0,input.length()-1);
+
+	}
+
+	private static boolean isPalindrome(String in,int si,int ei){
+		if(in.length()==0 || in.length()==1){
+			return true;
+		}
+		if(si>=ei){
+			return true;
+		}
+		if(in.charAt(si)!=in.charAt(ei)){
+			return false;
+		}
+		return isPalindrome(in,si+1,ei-1);
+
+	}
+}
