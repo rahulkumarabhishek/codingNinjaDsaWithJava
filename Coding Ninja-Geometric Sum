@@ -1,0 +1,15 @@
+
+public class solution {
+
+	public static double findGeometricSum(int k){
+		// Write your code here
+// base case
+    if (k == 0)
+        return 1;
+ 
+    // calculate the sum each time
+    double ans = 1 / (double)Math.pow(2, k) + findGeometricSum(k- 1);
+    // return final answer
+    return ans;
+	}
+}
