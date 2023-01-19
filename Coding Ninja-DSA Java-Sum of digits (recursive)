@@ -1,0 +1,36 @@
+
+public class solution {
+private static int sum=0;
+	public static int sumOfDigits(int input){
+		// Write your code here
+		int[] digits = Integer.toString(input).chars().map(c -> c-'0').toArray();
+		if(digits.length==0){
+			return 0;
+		}
+		if(digits.length==1){
+			return digits[0];
+		}
+		//return sumDigit(digits,0);
+		return digitSumBetter(input);
+	}
+
+	private static int sumDigit(int[] in,int si){
+		if(si==in.length-1){
+			return si;
+		}
+		sum+=in[si];
+		int smalerInput = sumDigit(in,si+1);
+		return sum+in[in.length-1];
+	}
+	//better aproach
+	private static int digitSumBetter(int input){
+		if(input==0){
+			return 0;
+		}
+		int smalerInput = input/10;
+		int lastDigit = input%10;
+		return lastDigit+digitSumBetter(smalerInput);
+
+	}
+
+}
