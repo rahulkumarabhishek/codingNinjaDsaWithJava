@@ -1,0 +1,24 @@
+
+public class solution {
+	private static int count;
+
+	public static int countZerosRec(int input){
+		// Write your code here
+		if(input==0){
+			return 1;
+		}
+		countZero(input);
+		return count;
+	}
+	private static void countZero(int input){
+		if(input==0){
+			return;
+		}
+		int smalerInput = input/10;
+		int lastDigit = input%10;
+		if(lastDigit==0 && smalerInput!=0){
+			count++;
+		}
+		countZero(smalerInput);
+	}
+}
