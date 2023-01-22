@@ -16,3 +16,14 @@ public class Solution {
 		}
 		return -1;
 	}
+
+	//using xor operator for beter time complexity
+	public static int findUniqueUsingXOR(int[] arr){
+    int ans=arr[0];
+    for(int  i=1;i<arr.length;i++)
+    {
+        ans=ans^arr[i];
+    }
+    return ans;
+}
+}
