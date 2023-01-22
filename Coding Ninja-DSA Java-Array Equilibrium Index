@@ -1,0 +1,20 @@
+public class Solution {
+
+	public static int arrayEquilibriumIndex(int[] arr){  
+		//Your code goes here
+		int i=0,sum=0,leftSum=0,rightSum=0;
+		while(i<arr.length){
+			sum+=arr[i++];
+		}
+		i=0;
+		while(i< arr.length){
+			rightSum = sum - leftSum - arr[i];
+			if(leftSum == rightSum){
+				return i;
+			}
+			leftSum+=arr[i];
+			i++;
+		}
+		return -1;
+	}
+}
