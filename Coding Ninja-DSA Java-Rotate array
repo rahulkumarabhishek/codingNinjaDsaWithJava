@@ -1,0 +1,49 @@
+
+public class Solution {  
+
+    public static void rotate(int[] arr, int d) {
+    	//Your code goes here
+        // int [] tempArr = new int[d];
+        // for(int i=0;i<d;i++){
+        //     tempArr[i]=arr[i];
+        // }
+        // int j=d;
+        // int k = 0;
+        // for(int i = 0;i< arr.length;i++){
+        //     if(j>arr.length-1){
+        //         arr[i]=tempArr[k++];
+        //     }else{
+        //         arr[i] = arr[j];
+        //     }
+        //     j++;
+        // }
+        if(arr.length==0|| arr.length==1){
+            return;
+        }
+        d = d%arr.length;
+        rotateWithOutExtraSpace(arr,0,arr.length-1);
+        int k = arr.length-d;
+        rotateWithOutExtraSpace(arr,0,k-1);
+        rotateWithOutExtraSpace(arr,k,arr.length-1);
+    }
+    // better approach without using extra space
+    private static void rotateWithOutExtraSpace(int[] arr, int i,int j){
+        //without recursion
+        while(i<j){
+             int temp = arr[i];
+             arr[i] = arr[j];
+             arr[j] = temp;
+             i++;
+             j--;
+        }
+        //withrecursion
+        //  if(i>j){
+        //     return;
+        // }
+        // int temp = arr[i];
+        // arr[i] = arr[j];
+        // arr[j] = temp;
+        // rotateWithOutExtraSpace(arr,i+1,j-1);
+    }
+
+}
