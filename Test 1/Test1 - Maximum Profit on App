@@ -1,0 +1,38 @@
+/*Input format :
+Line 1 : N (No. of subscribers)
+Line 2 : Budget of subscribers (separated by space)
+Output Format :
+ Maximum profit
+Constraints :
+1 <= N <= 10^6
+1 <=budget[i]<=9999
+Sample Input 1 :
+4
+30 20 53 14
+Sample Output 1 :
+60
+Sample Output 1 Explanation :
+Price of your app should be Rs. 20 or Rs. 30. For both prices, you can get the profit Rs. 60.
+Sample Input 2 :
+5
+34 78 90 15 67
+Sample Output 2 :
+201
+Sample Output 2 Explanation :
+Price of your app should be Rs. 67. You can get the profit Rs. 201 (i.e. 3 * 67).*/
+
+
+import java.util.Arrays;
+public class solution {
+
+    public static int maximumProfit(int budget[]) {
+        // Write your code here
+        Arrays.sort(budget);
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<budget.length;i++){
+            max = Math.max(max, budget[i] * (budget.length -i));
+        }
+        return max;
+    }
+
+}
