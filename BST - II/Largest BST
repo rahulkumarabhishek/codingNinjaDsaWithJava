@@ -1,0 +1,84 @@
+/*Largest BST
+Send Feedback
+Given a Binary tree, find the largest BST subtree. That is, you need to find the BST with maximum height in the given binary tree. You have to return the height of largest BST.
+Note :
+The binary tree will be consisting of only unique elements.
+Input format :
+The first line of input contains data of the nodes of the tree in level order form. The data of the nodes of the tree is separated by space. If any node does not have left or right child, take -1 in its place. Since -1 is used as an indication whether the left or right nodes exist, therefore, it will not be a part of the data of any node.
+Output format:
+The first and only line of output contains the height of the largest BST.
+Constraints:
+Time Limit: 1 second
+Sample Input 1:
+5 10 6 2 3 -1 -1 -1 -1 -1 9 -1 -1
+Sample Output 1:
+2
+*/
+
+public class Solution {
+	/*
+	 * BinaryTreeNode class
+	 * 
+	 * class BinaryTreeNode<T> 
+	 * { 
+	 * 		T data; 
+	 * 		BinaryTreeNode<T> left; 
+	 * 		BinaryTreeNode<T> right;
+	 *		public BinaryTreeNode(T data) 
+	 *		{
+	 *  		this.data = data; 
+	 *  	} 
+	 *  }
+	 */
+	
+	public static int largestBSTSubtree(BinaryTreeNode<Integer> root) {
+		// Write your code here
+		return isBst(root).height;
+	}
+	private static BstEntity isBst(BinaryTreeNode<Integer> root){
+		if(root == null){
+			return new BstEntity(Integer.MAX_VALUE, Integer.MIN_VALUE, true,0);
+		}
+
+		BstEntity left = isBst(root.left);
+		BstEntity right = isBst(root.right);
+		int min = Math.min(root.data, Math.min(left.min, right.min));
+		int max = Math.max(root.data, Math.max(left.max, right.max));
+		boolean isBst = false;
+		if(left.max < root.data && right.min > root.data && left.isBst && right.isBst){
+			isBst = true;
+		}
+		// if(left.max > root.data){
+		// 	isBst = false;
+		// }
+		// if(right.min <= root.data){
+		// 	isBst = false;
+		// }
+		// if(left.isBst == false || right.isBst == false){
+		// 	isBst = false;
+		// }
+		int height =0;
+		//left sub tree is bst , right subtree is bst and root itself is bst
+		if(isBst){
+		     height = 1 + Math.max(left.height, right.height);
+		}else{
+			height = Math.max(left.height, right.height);
+		}
+		return new BstEntity(min, max, isBst,height);
+	}
+
+}
+class BstEntity{
+	public int min;
+	public int max;
+	public boolean isBst;
+	int height;
+
+	public BstEntity(int min,int max, boolean isBst,int height){
+		this.min = min;
+		this.max = max;
+		this.isBst = isBst;
+		this.height = height;
+	}
+
+}

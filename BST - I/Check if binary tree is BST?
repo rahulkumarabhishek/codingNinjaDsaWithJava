@@ -1,0 +1,82 @@
+/*Check if binary tree is BST?
+Send Feedback
+Given a binary tree with N number of nodes, check if that input tree is BST (Binary Search Tree). If yes, return true, return false otherwise.
+Note: Duplicate elements should be kept in the right subtree.
+Input format :
+The first line of input contains data of the nodes of the tree in level order form. The data of the nodes of the tree is separated by space. If any node does not have a left or right child, take -1 in its place. Since -1 is used as an indication whether the left or right nodes exist, therefore, it will not be a part of the data of any node.
+Output format :
+The first and only line of output contains either true or false.
+Constraints :
+Time Limit: 1 second
+Sample Input 1 :
+3 1 5 -1 2 -1 -1 -1 -1
+Sample Output 1 :
+true
+Sample Input 2 :
+5 2 10 0 1 -1 15 -1 -1 -1 -1 -1 -1
+Sample Output 2 :
+false
+*/
+
+
+
+/*
+	
+	Following is the structure used to represent the Binary Tree Node
+
+	class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+ */
+
+public class Solution {
+
+	public static boolean isBST(BinaryTreeNode<Integer> root) {
+
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+		return isBst(root).isBst;
+
+	}
+	private static Container isBst(BinaryTreeNode<Integer> root){
+		if(root == null){
+			return new Container(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+		Container leftContainer = isBst(root.left);
+		Container rightContainer = isBst(root.right);
+
+		int max = Math.max(root.data, Math.max(leftContainer.max,rightContainer.max));
+		int min = Math.min(root.data, Math.min(leftContainer.min, rightContainer.min));
+		if(leftContainer.max >= root.data || rightContainer.min < root.data || ! leftContainer.isBst || ! rightContainer.isBst){
+           return new Container(false,max,min);
+		}else{
+			return new Container(true, max, min);
+		}
+	}
+
+}
+class Container{
+	public boolean isBst;
+	public int max;
+	public int min;
+
+	public Container(boolean isBST, int max, int min){
+		this.isBst = isBST;
+		this.max = max;
+		this.min = min;
+	}
+
+}
