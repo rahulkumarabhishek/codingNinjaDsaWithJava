@@ -1,0 +1,97 @@
+/* Subset Sum
+Send Feedback
+You are given a set of N integers. You have to return true if there exists a subset that sum up to K, otherwise return false.
+Input Format
+The first line of the test case contains an integer 'N' representing the total elements in the set.
+
+The second line of the input contains N integers separated by a single space.    
+
+The third line of the input contains a single integer, denoting the value of K.
+Output Format
+Output Yes if there exists a subset whose sum is k, else output No.
+Constraints :
+1 <= N <= 10^3
+1 <= a[i] <= 10^3, where a[i] denotes an element of the set 
+1 <= K <= 10^3
+
+Time Limit: 1 sec
+Sample Input 1 :
+4
+4 3 5 2
+13
+Sample Output 1 :
+No
+Sample Input 2 :
+5
+4 2 5 6 7
+14
+Sample Output 2 :
+Yes */
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution{
+    static boolean isSubsetPresent(int[] arr, int n, int sum) {
+
+        /* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+
+      //  return isSubsetPresentRecursive(arr, n, sum, 0);
+
+        int dp[][]=new int[n][sum+1];
+        for(int row[]: dp)
+            Arrays.fill(row,-1);
+
+        return isSubsetPresentMemo(arr,n,sum,0,dp);
+
+    }
+    private static boolean isSubsetPresentRecursive(int[] arr, int n, int sum,int i){
+
+        if(sum == 0){
+            return true;
+        }
+
+        if( i == n){
+            return false;
+        }
+
+        
+        boolean include = isSubsetPresentRecursive(arr,n,sum - arr[i],i + 1);
+        boolean exclude = isSubsetPresentRecursive(arr,n,sum,i + 1);
+
+        return include || exclude;
+
+
+    }
+
+ private static boolean isSubsetPresentMemo(int[] arr, int n, int sum,int i, int dp[][]){
+
+        if(sum == 0){
+            return true;
+        }
+        if(sum < 0){
+            return false;
+        }
+
+        if( i == n){
+            return false;
+        }
+         String key = n + "|" + sum;
+        if(dp[i][sum] != -1){
+            return dp[i][sum] == 0 ? false : true;
+        }
+
+        boolean include = isSubsetPresentMemo(arr,n,sum - arr[i],i + 1,dp);
+        boolean exclude = isSubsetPresentMemo(arr,n,sum,i + 1, dp);
+        dp[i][sum]=include || exclude ? 1 : 0;
+        
+        return include || exclude ;
+    }
+
+}

@@ -1,0 +1,98 @@
+/*Stair Case
+Send Feedback
+A child runs up a staircase with 'n' steps and can hop either 1 step, 2 steps or 3 steps at a time. Implement a method to count and return all possible ways in which the child can run-up to the stairs.
+Input format :
+The first and the only line of input contains an integer value, 'n', denoting the total number of steps.
+Output format :
+Print the total possible number of ways.
+ Constraints :
+0 <= n <= 10 ^ 4
+
+Time Limit: 1 sec
+Sample Input 1:
+4
+Sample Output 1:
+7
+Sample Input 2:
+10
+Sample Output 2:
+274 */
+
+public class Solution {
+
+    public static long staircase(int n) {
+        //Your code goes here
+        long[] dp = new long[n+1];
+        for(int i = 0; i < dp.length; i++){
+            dp[i] = -1;
+        }
+        return countTotalPathBetter(n, 0,dp);
+    }
+
+    private static long countTotalPath(int n, int i,long[] dp){
+
+        if(i == n){
+            return 1;
+        }
+        if(i > n){
+            return 0;
+        }
+
+        long stepTaken1 = 0;
+
+        if (i + 1 <= n){
+            if (dp[i + 1] == -1) {
+                stepTaken1 = countTotalPath(n, i + 1, dp);
+                dp[i + 1] = stepTaken1;
+            } else {
+                stepTaken1 = dp[i + 1];
+            }
+
+        }
+        
+        long stepTaken2 = 0;
+        if(i+2 <= n)
+        if(dp[i +2] == -1){
+           stepTaken2 = countTotalPath(n, i + 2, dp);
+           dp[i + 2] = stepTaken2;
+        }else{
+            stepTaken2 = dp[i + 2];
+        }
+
+        long stepTaken3 = 0;
+        if (i + 3 <= n)
+        if(dp[i + 3] == -1){
+            stepTaken3 = countTotalPath(n, i + 3, dp);
+           dp[i + 3] = stepTaken3;
+        }else{
+            stepTaken3 = dp[i + 3];
+        }
+        
+        return stepTaken1 + stepTaken2 + stepTaken3;
+    }
+
+    private static long countTotalPathBetter(int n, int i, long[] dp) {
+
+        if (i == n) {
+            return 1;
+        }
+        if (i > n) {
+            return 0;
+        }
+
+        if(dp[i] != -1){
+            return dp[n];
+        }
+
+        long stepTaken1 = countTotalPath(n, i + 1, dp);
+        long stepTaken2 = countTotalPath(n, i + 2, dp);
+        long stepTaken3 = countTotalPath(n, i + 3, dp);
+
+        long totalStep = stepTaken1 + stepTaken2 + stepTaken3;
+        
+        dp[i] = totalStep;
+
+        return totalStep;
+    }
+
+}
